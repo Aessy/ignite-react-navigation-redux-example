@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { StackNavigator, addNavigationHelpers } from 'react-navigation'
+import { StackNavigator, TabNavigator, addNavigationHelpers } from 'react-navigation'
 
 import SendScreen from '../Containers/SendScreen'
 import LaunchScreen from '../Containers/LaunchScreen'
@@ -8,9 +8,26 @@ import LoginScreen from '../Containers/LoginScreen'
 
 import styles from './Styles/NavigationStyles'
 
+const Tabs = TabNavigator({
+  TabOne: {
+    screen: SendScreen,
+    navigationOptions: {
+      title: 'Tab One'
+    }
+  },
+  TabTwo: {
+    screen: LaunchScreen,
+    navigationOptions: {
+      title: 'Tab Two'
+    }
+  }
+})
+
 // Manifest of possible screens
 const PrimaryNav = StackNavigator({
-  SendScreen: { screen: SendScreen },
+  SendScreen: {
+    screen: Tabs
+  },
   LaunchScreen: { screen: LaunchScreen },
   LoginScreen: {
     screen: LoginScreen,
@@ -52,5 +69,4 @@ function mapStateToProps (state) {
   }
 }
 
-// export default PrimaryNav
 export default connect(mapStateToProps)(Navigation)
